@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perpustakaan Skill — Indra Erlangga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Poppins',sans-serif; background:#0f1417; color:#e8ecef; }
+  .wrap { max-width:1060px; margin:0 auto; padding:0 20px; }
+  header { padding:56px 0 10px; text-align:center; }
+  header h1 { font-size:2.1rem; font-weight:800; line-height:1.2; }
+  header h1 span { color:#F2A900; }
+  header p { color:#a7b0b8; margin-top:12px; font-size:.98rem; }
+  .dl-all { display:inline-block; margin-top:22px; background:#F2A900; color:#14181b; font-weight:700;
+           padding:12px 22px; border-radius:12px; text-decoration:none; }
+  .dl-all:hover { background:#ffb81f; }
+  .search { margin:34px auto 6px; max-width:520px; }
+  .search input { width:100%; padding:13px 18px; border-radius:12px; border:1px solid #2b343a;
+                  background:#171e23; color:#e8ecef; font-family:inherit; font-size:.95rem; }
+  .search input:focus { outline:2px solid #F2A900; border-color:transparent; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; padding:26px 0 10px; }
+  .card { background:#171e23; border:1px solid #2b343a; border-radius:16px; padding:20px; display:flex; flex-direction:column; }
+  .card h3 { font-size:1.05rem; font-weight:700; }
+  .tag { display:inline-block; font-size:.68rem; font-weight:700; padding:3px 9px; border-radius:99px; margin-bottom:10px; width:fit-content; }
+  .tag.own { background:#23402c; color:#8fd79b; }
+  .tag.com { background:#3a2f10; color:#F2A900; }
+  .card p { color:#a7b0b8; font-size:.86rem; line-height:1.55; flex:1; }
+  .meta { color:#6d7880; font-size:.75rem; margin-top:12px; }
+  .actions { display:flex; gap:8px; margin-top:14px; }
+  .btn { flex:1; text-align:center; padding:10px 8px; border-radius:10px; font-size:.83rem; font-weight:600;
+         text-decoration:none; cursor:pointer; border:0; font-family:inherit; }
+  .btn.read { background:#232c33; color:#e8ecef; }
+  .btn.read:hover { background:#2c3741; }
+  .btn.zip { background:#F2A900; color:#14181b; }
+  .btn.zip:hover { background:#ffb81f; }
+  section.info { padding:38px 0; }
+  section.info h2 { font-size:1.35rem; font-weight:800; margin-bottom:14px; }
+  section.info h2 span { color:#F2A900; }
+  section.info ol { margin-left:20px; color:#c3ccd2; font-size:.93rem; line-height:1.9; }
+  section.info p { color:#c3ccd2; font-size:.93rem; line-height:1.8; }
+  footer { border-top:1px solid #232b31; padding:26px 0 40px; color:#6d7880; font-size:.82rem; text-align:center; }
+  footer a { color:#F2A900; text-decoration:none; }
+  .modal { position:fixed; inset:0; background:rgba(5,8,10,.78); display:none; align-items:center; justify-content:center; padding:18px; z-index:10; }
+  .modal.open { display:flex; }
+  .box { background:#171e23; border:1px solid #2b343a; border-radius:16px; max-width:760px; width:100%;
+         max-height:86vh; display:flex; flex-direction:column; }
+  .box header { padding:18px 20px 8px; text-align:left; }
+  .box header h3 { font-size:1.05rem; }
+  .box pre { overflow:auto; padding:6px 20px 16px; white-space:pre-wrap; word-break:break-word;
+             font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.78rem; line-height:1.6; color:#c3ccd2; }
+  .box .foot { display:flex; gap:8px; padding:14px 20px 18px; border-top:1px solid #232b31; }
+  .empty { text-align:center; color:#6d7880; padding:34px 0; display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Perpustakaan <span>Skill</span></h1>
+    <p>Kumpulan skill siap pakai berbahasa Indonesia, dalam format SKILL.md — format yang dipakai fitur skill di Claude, Gemini, dan ChatGPT. Dikurasi dari meja kerja Indra Erlangga dan komunitas.</p>
+    <a class="dl-all" href="#" id="dl-all">Download semua skill (.zip)</a>
+  </header>
+
+  <div class="search"><input id="q" type="text" placeholder="Cari skill…"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">Tidak ada skill yang cocok dengan pencarianmu.</div>
+
+  <section class="info">
+    <h2>Cara <span>pasang</span></h2>
+    <ol>
+      <li>Download file <b>.zip</b> skill yang kamu mau. Jangan diekstrak.</li>
+      <li>Di claude.ai, buka <b>Settings</b>, lalu <b>Capabilities</b>.</li>
+      <li>Pastikan <b>Code execution and file creation</b> aktif.</li>
+      <li>Di bagian <b>Skills</b>, pilih <b>Upload skill</b>, lalu pilih file .zip tadi.</li>
+      <li>Buka chat baru dan minta seperti biasa — AI memakai skill-nya sendiri saat permintaanmu cocok.</li>
+    </ol>
+    <p style="margin-top:14px"><b>Cara tempel (bisa di AI mana saja):</b> buka skill, klik <b>Baca isi skill</b>, salin semua teksnya, lalu tempel di awal chat baru. Di bawahnya, tulis permintaanmu.</p>
+  </section>
+
+  <footer>
+    Perpustakaan Skill — dikurasi oleh <a href="https://www.instagram.com/indraerlangga1508">@indraerlangga1508</a>. Skill berlabel Komunitas dibuat oleh pembuatnya masing-masing dan dibagikan dengan atribusi.
+  </footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="box">
+    <header><h3 id="m-title"></h3><div class="meta" id="m-meta"></div></header>
+    <pre id="m-body"></pre>
+    <div class="foot">
+      <button class="btn read" id="m-copy">Salin isi skill</button>
+      <button class="btn zip" id="m-zip">Download .zip</button>
+      <button class="btn read" id="m-close">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<script src="skills.js"></script>
+<script>
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  const modal = document.getElementById('modal');
+  let current = null;
+
+  function render(list) {
+    grid.innerHTML = '';
+    empty.style.display = list.length ? 'none' : 'block';
+    for (const s of list) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <span class="tag ${s.kind === 'Komunitas' ? 'com' : 'own'}">${s.kind}</span>
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+        <div class="meta">oleh ${s.author}</div>
+        <div class="actions">
+          <button class="btn read">Baca isi skill</button>
+          <button class="btn zip">Download .zip</button>
+        </div>`;
+      card.querySelector('.read').onclick = () => openModal(s);
+      card.querySelector('.zip').onclick = () => downloadZip(s.files, s.id + '.zip');
+      grid.appendChild(card);
+    }
+  }
+  function openModal(s) {
+    current = s;
+    document.getElementById('m-title').textContent = s.title;
+    document.getElementById('m-meta').textContent = 'oleh ' + s.author + ' · ' + s.kind;
+    document.getElementById('m-body').textContent = s.content;
+    document.getElementById('m-zip').onclick = () => downloadZip(s.files, s.id + '.zip');
+    modal.classList.add('open');
+  }
+  document.getElementById('m-close').onclick = () => modal.classList.remove('open');
+  modal.onclick = e => { if (e.target === modal) modal.classList.remove('open'); };
+  document.getElementById('m-copy').onclick = async e => {
+    try { await navigator.clipboard.writeText(current.content); e.target.textContent = 'Tersalin!'; }
+    catch { e.target.textContent = 'Gagal menyalin'; }
+    setTimeout(() => e.target.textContent = 'Salin isi skill', 1600);
+  };
+  // Pembuat ZIP sederhana (metode store, tanpa kompresi) — jalan 100% di browser.
+  const CRC_TABLE = (() => { const t = []; for (let n = 0; n < 256; n++) { let c = n;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(bytes) { let c = 0xFFFFFFFF;
+    for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0; }
+  function downloadZip(files, zipName) {
+    const enc = new TextEncoder();
+    const chunks = [], central = [];
+    let offset = 0;
+    const u16 = v => [v & 0xFF, (v >>> 8) & 0xFF];
+    const u32 = v => [v & 0xFF, (v >>> 8) & 0xFF, (v >>> 16) & 0xFF, (v >>> 24) & 0xFF];
+    for (const f of files) {
+      const name = enc.encode(f.path), data = enc.encode(f.content), crc = crc32(data);
+      const local = new Uint8Array([].concat(u32(0x04034b50), u16(20), u16(0x0800), u16(0),
+        u16(0), u16(0x21), u32(crc), u32(data.length), u32(data.length), u16(name.length), u16(0)));
+      chunks.push(local, name, data);
+      central.push(new Uint8Array([].concat(u32(0x02014b50), u16(20), u16(20), u16(0x0800), u16(0),
+        u16(0), u16(0x21), u32(crc), u32(data.length), u32(data.length), u16(name.length),
+        u16(0), u16(0), u16(0), u16(0), u32(0), u32(offset))), name);
+      offset += local.length + name.length + data.length;
+    }
+    let cdSize = 0; for (const c of central) cdSize += c.length;
+    const end = new Uint8Array([].concat(u32(0x06054b50), u16(0), u16(0),
+      u16(files.length), u16(files.length), u32(cdSize), u32(offset), u16(0)));
+    const blob = new Blob([...chunks, ...central, end], { type: 'application/zip' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = zipName; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }
+  document.getElementById('dl-all').onclick = e => {
+    e.preventDefault();
+    downloadZip(SKILLS.flatMap(s => s.files), 'semua-skill.zip');
+  };
+  document.getElementById('q').addEventListener('input', e => {
+    const q = e.target.value.toLowerCase();
+    render(SKILLS.filter(s => (s.title + ' ' + s.desc + ' ' + s.author).toLowerCase().includes(q)));
+  });
+  render(SKILLS);
+</script>
+</body>
+</html>
