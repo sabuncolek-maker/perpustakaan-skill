@@ -6,13 +6,11 @@ Situsnya statis polos (`index.html` + `skills.js`) — tanpa build, tanpa server
 
 ## Isi
 
-- Desain Presisi Parametrik — Indra Erlangga
-- Remotion Motion Graphics — Komunitas
-- Kurasi Perpustakaan Suara — Indra Erlangga
-- Cek Ekor TTS — Indra Erlangga
-- AI Cat Prompt Generator — Nalarka (Komunitas)
-- Motion Graphics Explainer — Nalarka (Komunitas)
-- Seedance 2.5 Prompt Generator — Nalarka (Komunitas)
+Semua skill disusun oleh Muse dari aturan kerja Indra Erlangga:
+
+- Desain Presisi dari Kode
+- Atur Koleksi Suara
+- Cek Ekor Audio TTS
 
 ## Cara pasang skill
 
