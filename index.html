@@ -92,10 +92,10 @@
       </svg>
     </div>
     <h1>Perpustakaan <span class="hl">Skill</span></h1>
-    <p>Kumpulan skill siap pakai berbahasa Indonesia, dalam format SKILL.md — format yang dipakai fitur skill di Claude, Gemini, dan ChatGPT. Dikurasi dari meja kerja Indra Erlangga dan komunitas.</p>
+    <p>Kumpulan skill siap pakai berbahasa Indonesia, dalam format SKILL.md — format yang dipakai fitur skill di Claude, Gemini, dan ChatGPT. Disusun dan dikoleksi dari meja kerja Indra Erlangga dan karya kreator lain.</p>
     <div class="stats">
       <div class="stat"><b>7</b> skill siap pakai</div>
-      <div class="stat">Buatan sendiri &amp; <b>komunitas</b></div>
+      <div class="stat">Meja kerja &amp; <b>karya kreator lain</b></div>
       <div class="stat"><b>Gratis</b>, tanpa daftar</div>
     </div>
     <a class="dl-all" href="#" id="dl-all">Download semua skill (.zip)</a>
@@ -118,7 +118,7 @@
   </section>
 
   <footer>
-    Perpustakaan Skill — dikurasi oleh <a href="https://www.instagram.com/indraerlangga1508">@indraerlangga1508</a>. Skill berlabel Komunitas dibuat oleh pembuatnya masing-masing dan dibagikan dengan atribusi.
+    Perpustakaan Skill — dikurasi oleh <a href="https://www.instagram.com/indraerlangga1508">@indraerlangga1508</a>. Skill Meja Kerja disusun oleh Muse dari aturan kerja Indra Erlangga. Skill Nalarka dan Koleksi dibuat oleh pembuatnya masing-masing dan dibagikan dengan atribusi.
   </footer>
 </div>
 
@@ -150,7 +150,7 @@
       card.className = 'card';
       card.style.setProperty('--spine', SPINES[SKILLS.indexOf(s) % SPINES.length]);
       card.innerHTML = `
-        <span class="tag ${s.kind === 'Komunitas' ? 'com' : 'own'}">${s.kind}</span>
+        <span class="tag ${s.kind === 'Meja Kerja' ? 'own' : 'com'}">${s.kind}</span>
         <h3>${s.title}</h3>
         <p>${s.desc}</p>
         <div class="meta">oleh ${s.author}</div>
